@@ -5,7 +5,7 @@ from django.test.client import Client
 
 from models import Report, Message
 
-data_for_report = {
+DATA_FOR_REPORT = {
     'msg_id': 1,
     'source': '16130',
     'dest': '359 88 66 66 66',
@@ -19,7 +19,7 @@ data_for_report = {
 class CreateReport(TestCase):
 
     def setUp(self):
-        self.query_string = data_for_report.copy()
+        self.query_string = DATA_FOR_REPORT.copy()
         self.client = Client()
 
     def tearDown(self):

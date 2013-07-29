@@ -1,18 +1,14 @@
 from django.db import models
 
-# Create your models here.
 
-
-# sending message to Labirintti
 class Message(models.Model):
-    TYPE_O_MESSAGE = (('text', 'text'), ('binary', 'binary'), ('wap_url', 'wap_url'))
-    _CLASS = (('normal', 'normal'), ('flash', 'flash'))
+    MESSAGE_TYPES = (('text', 'Plain text'), ('binary', 'Binary'), ('wap_url', 'WAP Push SI Message'))
+    _CLASS = (('normal', 'Normal Message'), ('flash', 'Flash Message'))
     BOOLEAN = (('yes', 'yes'), ('no', 'no'))
 
     destination = models.CharField(max_length=16)
-    message_type = models.CharField(max_length=7, choices=TYPE_O_MESSAGE)
+    message_type = models.CharField(max_length=7, choices=MESSAGE_TYPES)
 
-    # optional
     source_name = models.CharField(max_length=16, blank=True)
     source = models.CharField(max_length=2, blank=True)
     service = models.CharField(max_length=10, blank=True)
