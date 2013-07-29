@@ -22,7 +22,7 @@ class Message(models.Model):
     report = models.URLField(blank=True)
 
     def __unicode__(self):
-        return 'Sent to {}'.format(self.destination)
+        return u'Message to {}'.format(self.destination)
 
 
 class Report(models.Model):
@@ -37,4 +37,4 @@ class Report(models.Model):
     timestamp = models.DateTimeField()
 
     def __unicode__(self):
-        return 'Report from {}'.format(self.timestamp)
+        return u'Report for {}'.format(self.message)
