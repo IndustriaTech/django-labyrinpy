@@ -38,12 +38,10 @@ class Message(models.Model):
                                        "Please suply LABYRINPY_USERNAME and"
                                        "and LABYRINPY_PASSWORD values")
         # kwargs[message_type] = content
+        # kwargs[report] = reverse('create-report')
         # request = LabyrinpyRequest(username, password)
         # request.send(**kwargs)
-        # message = cls(kwargs)
-        # message.report = reverse('create-report'....)
-        # message.save()
-        # return message
+        # return cls.objects.create(**kwargs)
 
 
 class Report(models.Model):
