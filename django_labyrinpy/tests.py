@@ -1,7 +1,8 @@
 from datetime import datetime
-from django.test import TestCase
+
 from django.core.urlresolvers import reverse
-from django.test.client import Client
+from django.test import client, TestCase
+from django.utils.timezone import utc
 
 from models import Report, Message
 
@@ -12,7 +13,7 @@ DATA_FOR_REPORT = {
     'status': 'OK',
     'code': 0,
     'description': 'Message delivered',
-    'timestamp': datetime(2013, 0o7, 22, 10, 0o4, 55)
+    'timestamp': datetime(2013, 0o7, 22, 10, 0o4, 55).replace(tzinfo=utc)
 }
 
 
@@ -20,7 +21,7 @@ class CreateReport(TestCase):
 
     def setUp(self):
         self.query_string = DATA_FOR_REPORT.copy()
-        self.client = Client()
+        self.client = client.Client()
 
     def tearDown(self):
         pass
