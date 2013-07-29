@@ -22,5 +22,11 @@ class MessageAdmin(admin.ModelAdmin):
                       'classes': ['collapse']}),
     ]
 
+
+class ReportAdmin(admin.ModelAdmin):
+    raw_id_fields = ('message',)
+    list_display = ('message', 'status', 'timestamp')
+    list_filter = ('status',)
+
 admin.site.register(Message, MessageAdmin)
-admin.site.register(Report)
+admin.site.register(Report, ReportAdmin)
