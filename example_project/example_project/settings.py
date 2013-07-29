@@ -26,6 +26,8 @@ SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 SECRET_KEY = 'z$(*(rn&q(*+_ovr#s9(zo+2@qt%(y$@d^6ccq3wwe2j_gs#+j'
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
