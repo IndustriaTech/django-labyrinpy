@@ -1,4 +1,8 @@
 from django.db import models
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+
+from labyrinpy.request import LabyrinpyRequest
 
 
 class Message(models.Model):
@@ -8,7 +12,7 @@ class Message(models.Model):
 
     destination = models.CharField(max_length=16)
     message_type = models.CharField(max_length=7, choices=MESSAGE_TYPES)
-
+    content = models.CharField(max_length=160)
     source_name = models.CharField(max_length=16, blank=True)
     source = models.CharField(max_length=2, blank=True)
     service = models.CharField(max_length=10, blank=True)
@@ -23,6 +27,23 @@ class Message(models.Model):
 
     def __unicode__(self):
         return u'Message to {}'.format(self.destination)
+
+    @classmethod
+    def send(cls, destination, message_type, content, **kwargs):
+        try:
+            username = settings.LABYRINPY_USERNAME
+            password = settings.LABYRINPY_PASSWORD
+        except AttributeError:
+            raise ImproperlyConfigured("Labyrinpy is improperly configured."
+                                       "Please suply LABYRINPY_USERNAME and"
+                                       "and LABYRINPY_PASSWORD values")
+        # kwargs[message_type] = content
+        # request = LabyrinpyRequest(username, password)
+        # request.send(**kwargs)
+        # message = cls(kwargs)
+        # message.report = reverse('create-report'....)
+        # message.save()
+        # return message
 
 
 class Report(models.Model):
