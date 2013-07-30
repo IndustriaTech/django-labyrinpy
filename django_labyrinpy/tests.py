@@ -16,6 +16,37 @@ DATA_FOR_REPORT = {
     'timestamp': datetime(2013, 0o7, 22, 10, 0o4, 55).replace(tzinfo=utc)
 }
 
+SMS_SEND = {
+    'destination': 'unknown',
+    'message_type': 'text',
+    'content': 'some test going around here',
+
+    'source_name': 'Company',
+    'source': '16130',
+    'service': 'ORDER',
+    'header': '060504158A0000',
+    'wap_text': '060504158A0000',
+    'class': 'normal',
+    'concatenate': False,
+    'unicode': True,
+    'validity': '1440',
+    'delivery': '60'
+}
+
+INVALID_SMS = {
+    'destination': 'unknown',
+    # message_type - missing but it's a must
+    'content': 'some test going around here',
+    'source_name': 'Company',
+    'unicode': True
+}
+
+VALID_SMS_NO_OPTIONAL = {
+    'destination': 'unknown',
+    'message_type': 'text',
+    'content': 'some test going around here'
+}
+
 
 class CreateReport(TestCase):
 
@@ -49,10 +80,25 @@ class CreateReport(TestCase):
 class SendSMS(TestCase):
 
     def setUp(self):
-        pass
+        self.query_string = SMS_SEND.copy()
+        self.invalid_sms = INVALID_SMS.copy()
+        self.no_optional = VALID_SMS_NO_OPTIONAL.copy()
 
     def tearDown(self):
         pass
 
     def test_send_sms(self):
-        pass
+        messages_before = Message.objects.count()
+        Message.send(**self.query_string)
+        messages_after = Message.objects.count()
+        self.assertTrue(messages_after > messages_before)
+
+    def test_for_invalid_sms(self):
+        with self.assertRaises(TypeError):
+            Message.send(**self.invalid_sms)
+
+    def test_send_sms_no_optional(self):
+        messages_before = Message.objects.count()
+        Message.send(**self.no_optional)
+        messages_after = Message.objects.count()
+        self.assertTrue(messages_after > messages_before)
