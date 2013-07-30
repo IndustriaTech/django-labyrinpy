@@ -13,6 +13,8 @@ class Message(models.Model):
     destination = models.CharField(max_length=16)
     message_type = models.CharField(max_length=7, choices=MESSAGE_TYPES)
     content = models.CharField(max_length=160)
+
+    # Optional
     source_name = models.CharField(max_length=16, blank=True)
     source = models.CharField(max_length=2, blank=True)
     service = models.CharField(max_length=10, blank=True)
@@ -52,7 +54,7 @@ class Report(models.Model):
     dest = models.CharField(max_length=16)
     status = models.CharField(max_length=7, choices=STATUS)
     code = models.CharField(max_length=2)
-    description = models.CharField(max_length=40)  # message
+    description = models.CharField(max_length=40)
     timestamp = models.DateTimeField()
 
     def __unicode__(self):
